@@ -1,0 +1,30 @@
+•	Image Upload
+•	 
+•	if (!is_null($request->brand_logo)) {
+•	            $request->validate([
+•	                'brand_logo'   => 'max:1024|image|dimensions:ratio=1/1',
+•	            ], [
+•	                'brand_logo.dimensions' => 'image dimensions height and width will be equal Example:500px X 500px'
+•	            ]);
+•	            if (file_exists("uploads/brands/$request->old_brand_logo")) {
+•	                File::delete("uploads/brands/$request->old_brand_logo");
+•	            }
+•	            $imgName = rand('10', 100) . '-' . $request->brand_logo->getClientOriginalName();
+•	            $originalImgName = str_replace(array('\'', '"', ',', ';', '<', '>', '/', ' ', '_'), '-', $imgName);
+•	            Image::make($request->brand_logo)
+•	                ->save("uploads/brands/$originalImgName");
+•	            $brand_logo =  $originalImgName;
+•	        } else {
+•	            $brand_logo =  $request->old_brand_logo;
+•	        }
+
+*Filename and extension
+$imagesfileName = $image->getClientOriginalName();
+                $filename = pathinfo($imagesfileName, PATHINFO_FILENAME);
+                $extension = pathinfo($imagesfileName, PATHINFO_EXTENSION);
+
+*File delete
+	if (file_exists("uploads/brands/$this->old_brand_logo")) {
+                File::delete("uploads/brands/$this->old_brand_logo");
+            }
+
